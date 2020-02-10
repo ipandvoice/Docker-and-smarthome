@@ -1,0 +1,48 @@
+---
+version: '3.3'
+
+services: 
+  nextcloud-db:
+    image: mariadb
+    container_name: nextcloud-db
+    command: --transaction-isolation=READ-COMMITTED --log-bin=ROW
+    restart: always
+    volumes:
+      - /var/docker/nextcloud/database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_INITDB_SKIP_TZINFO=1 # Behebt die bekannten Startprobleme der Datenbank
+    
+  nextcloud-app:
+    image: nextcloud
+    container_name: nextcloud-app
+    restart: always
+    volumes: 
+      - /var/docker/nextcloud/app:/var/www/html
+    links:
+      - nextcloud-db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.nextcloud-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.nextcloud-http.entrypoints=web"
+      - "traefik.http.routers.nextcloud-http.rule=Host(`nextcloud.example.com`)" #Domain anpassen
+      - "traefik.http.routers.nextcloud-http.middlewares=nextcloud-https@docker"
+      - "traefik.http.routers.nextcloud.entrypoints=web-secure"
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.example.com`)" #Domain anpassen
+      - "traefik.http.routers.nextcloud.tls=true"
+      - "traefik.http.routers.nextcloud.tls.certresolver=default"
+      - "traefik.http.routers.nextcloud.middlewares=secHeaders@file"
+      - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
+    networks:
+      - traefik_proxy
+      - default
+    
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
+  default:
+    driver: bridge
