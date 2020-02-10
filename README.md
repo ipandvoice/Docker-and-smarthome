@@ -11,3 +11,4 @@ Es werden keine Docker Volumes verwendet sondern bind mounts! Als Standardverzei
 # Wichtiges
 Im Laufe der Zeit können sich Produkte ändern oder nicht mehr durch die Entwickler gewartet werden. Bitte habt Verständnis dafür, dass dieses Repository nicht vollständig und zu jeder Zeit korrekt sein kann. Außerdem sind vor Benutzung immer die Dummy-Passwörter durch komplexe eigene Passwörter zu ersetzen!
 
+# Anmerkung
