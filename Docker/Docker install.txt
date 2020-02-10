@@ -14,4 +14,6 @@ pip install docker-compose
 
 #git
 apt install git
+git clone https://github.com/ipandvoice/Docker-and-smarthome
+ls -lat
 
