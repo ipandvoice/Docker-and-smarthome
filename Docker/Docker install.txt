@@ -7,7 +7,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 
 #Phyton
-apt install phyton-pip -y
+apt install python-pip -y
 
 #Docker composer
 pip install docker-compose
