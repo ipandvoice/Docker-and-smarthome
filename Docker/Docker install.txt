@@ -12,3 +12,6 @@ apt install phyton-pip -y
 #Docker composer
 pip install docker-compose
 
+#git
+apt install git
+
