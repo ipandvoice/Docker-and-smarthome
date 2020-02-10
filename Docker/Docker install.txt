@@ -1,0 +1,14 @@
+#Docker script
+get.docker.com
+
+#Docker install Debian, Ubuntu, CentOS, Fedora
+apt install curl
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+
+#Phyton
+apt install phyton-pip -y
+
+#Docker composer
+pip install docker-compose
+
